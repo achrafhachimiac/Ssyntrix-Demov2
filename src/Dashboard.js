@@ -18,7 +18,7 @@ import { FaRegUser } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
-    <aside className="h-fit w-56 bg-gradient-primary text-gray-400 sticky top-0">
+    <aside className="sticky top-5 h-fit w-56 bg-gradient-primary text-gray-400">
       <div className="h-[32%] items-center flex flex-col">
         <div className="py-6 px-4 h-3/5">
           <img
