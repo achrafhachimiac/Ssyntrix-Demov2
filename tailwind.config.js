@@ -1,9 +1,9 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'blue-custom': '#173BA6',
+        "blue-custom": "#173BA6",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -50,28 +50,27 @@ module.exports = {
         },
       },
       fontSize: {
-
-        'ssm': '0.6rem',
-        'sssm': '0.65rem',
-        'sm': '0.8rem',
-        'font-dh': '0.85rem',
-        'base': '1rem',
-        'xl': '1.25rem',
-        '2xl': '1.563rem',
-        '3xl': '1.953rem',
-        '4xl': '2.441rem',
-        '5xl': '3.052rem',
+        ssm: "0.6rem",
+        sssm: "0.65rem",
+        sm: "0.8rem",
+        "font-dh": "0.85rem",
+        base: "1rem",
+        xl: "1.25rem",
+        "2xl": "1.563rem",
+        "3xl": "1.953rem",
+        "4xl": "2.441rem",
+        "5xl": "3.052rem",
       },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
-        'large': '4px',
-        'full': '9999px',
+        large: "4px",
+        full: "9999px",
       },
       borderWidth: {
-        '1': '2px',
-        '2': '1rem',
+        1: "2px",
+        2: "1rem",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
@@ -93,4 +92,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
