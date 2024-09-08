@@ -1,180 +1,154 @@
-import { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line, Bar, Doughnut, Radar } from "react-chartjs-2";
+import { BsShieldLock, BsGraphUp, BsExclamationTriangle } from "react-icons/bs";
+import { IoIosWarning } from "react-icons/io";
 
-export default function Component() {
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export default function ReportStats() {
+  const attacksData = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        label: "Detected Attacks",
+        data: [65, 59, 80, 81, 56, 55],
+        fill: false,
+        borderColor: "rgba(75,192,192,1)",
+        tension: 0.1,
+      },
+    ],
+  };
+
+  const threatsData = {
+    labels: ["Phishing", "Malware", "DDoS", "SQL Injection", "Ransomware"],
+    datasets: [
+      {
+        label: "Detected Threats",
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const attackDistributionData = {
+    labels: ["Phishing", "Malware", "DDoS", "SQL Injection"],
+    datasets: [
+      {
+        label: "Attack Distribution",
+        data: [300, 50, 100, 50],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+      },
+    ],
+  };
+
+  const vulnerabilitiesData = {
+    labels: ["Web Apps", "Red Interna", "Usuarios", "Hardware", "Software"],
+    datasets: [
+      {
+        label: "Vulnerabilities",
+        data: [2, 3, 5, 1, 4],
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
-    <div className="grid min-h-screen w-full grid-cols-1 gap-6 bg-gray-100 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 bg-white shadow rounded-lg p-4">
-        <div className="mb-4">
-          <h2 className="text-xl font-bold">Remittance Data to Central Bank</h2>
-          <p className="text-sm text-gray-500">
-            Total incidents and corresponding monetary values, with a chart of treated incidents and the time evolution
-            of incident resolution.
-          </p>
+    <div className="container mx-auto p-4">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gray-800 flex items-center justify-center">
+          Report & Stats <BsShieldLock className="ml-2" />
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+          <BsGraphUp className="text-4xl text-blue-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-700">
+            Detected Attacks
+          </h3>
+          <p className="text-2xl font-bold text-gray-800">1050</p>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-50 p-4 rounded-lg shadow">
-                <p className="text-sm text-gray-500">Total Incidents</p>
-                <h3 className="text-2xl font-bold">1,234</h3>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg shadow">
-                <p className="text-sm text-gray-500">Total Value</p>
-                <h3 className="text-2xl font-bold">$5,678,901</h3>
-              </div>
-            </div>
-            <LineChart className="h-64" />
-          </div>
-          <BarChart className="h-64" />
+        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+          <IoIosWarning className="text-4xl text-yellow-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-700">
+            Blocked Threats
+          </h3>
+          <p className="text-2xl font-bold text-gray-800">980</p>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+          <BsExclamationTriangle className="text-4xl text-red-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-700">Current Risks</h3>
+          <p className="text-2xl font-bold text-gray-800">35</p>
         </div>
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Detected Attacks Over Time
+          </h2>
+          <Line data={attacksData} />
+        </div>
 
-      <Card title="Incident Reporting to Authorities">
-        <LineChart className="h-64" />
-      </Card>
-      <Card title="Transaction Data">
-        <BarChart className="h-64" />
-      </Card>
-      <Card title="AML/CFT Detection">
-        <LineChart className="h-64" />
-      </Card>
-      <Card title="Customer Due Diligence">
-        <StackedBarChart className="h-64" />
-      </Card>
-      <Card title="Branch-Specific Incidents">
-        <BarChart className="h-64" />
-      </Card>
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Types of Detected Threats
+          </h2>
+          <Bar data={threatsData} />
+        </div>
+
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Attack Distribution
+          </h2>
+          <Doughnut data={attackDistributionData} />
+        </div>
+
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Vulnerabilities in Critical Areas
+          </h2>
+          <Radar data={vulnerabilitiesData} />
+        </div>
+      </div>
     </div>
   );
 }
-
-function Card({ title, children }) {
-  return (
-    <div className="bg-white shadow rounded-lg p-4">
-      <h2 className="text-xl font-bold">{title}</h2>
-      {children}
-    </div>
-  );
-}
-
-function BarChart(props) {
-  const chartRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          {
-            label: 'Count',
-            data: [111, 157, 129, 150, 119, 72],
-            backgroundColor: '#2563eb',
-          },
-        ],
-      },
-      options: chartOptions,
-    });
-  }, []);
-
-  return <canvas ref={chartRef} {...props}></canvas>;
-}
-
-function LineChart(props) {
-  const chartRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          {
-            label: 'Desktop',
-            data: [43, 137, 61, 145, 26, 154],
-            borderColor: '#2563eb',
-            fill: false,
-          },
-          {
-            label: 'Mobile',
-            data: [60, 48, 177, 78, 96, 204],
-            borderColor: '#e11d48',
-            fill: false,
-          },
-        ],
-      },
-      options: chartOptions,
-    });
-  }, []);
-
-  return <canvas ref={chartRef} {...props}></canvas>;
-}
-
-function StackedBarChart(props) {
-  const chartRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          {
-            label: 'Desktop',
-            data: [111, 157, 129, 187, 119, 20],
-            backgroundColor: '#2563eb',
-          },
-          {
-            label: 'Mobile',
-            data: [99, 87, 89, 151, 127, 121],
-            backgroundColor: '#e11d48',
-          },
-        ],
-      },
-      options: {
-        ...chartOptions,
-        scales: {
-          x: {
-            stacked: true,
-          },
-          y: {
-            stacked: true,
-          },
-        },
-      },
-    });
-  }, []);
-
-  return <canvas ref={chartRef} {...props}></canvas>;
-}
-
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    tooltip: {
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      titleColor: '#fff',
-      bodyColor: '#fff',
-      displayColors: false,
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      grid: {
-        color: '#f3f4f6',
-      },
-    },
-  },
-};
